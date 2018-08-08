@@ -2,6 +2,7 @@ import * as React from "react";
 import "./App.css";
 
 import logo from "./logo.svg";
+import List from './man/list';
 import ManWrapper from './man/manwrapper';
 
 class App extends React.Component {
@@ -14,6 +15,7 @@ class App extends React.Component {
         </header>
         
         <ManWrapper/>
+        <List/>
       </div>
     );
   }
