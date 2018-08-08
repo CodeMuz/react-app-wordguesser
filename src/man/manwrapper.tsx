@@ -16,9 +16,9 @@ const mapStateToProps = (state: any) => {
   };
 };
 
-const Man2 = connect(
+const ManWrapper = connect(
   mapStateToProps,
   mapDispatchToProps
 )(Man);
 
-export default Man2;
+export default ManWrapper;

@@ -2,7 +2,7 @@ import * as React from "react";
 import "./App.css";
 
 import logo from "./logo.svg";
-import Man2 from './man/man2';
+import ManWrapper from './man/manwrapper';
 
 class App extends React.Component {
   public render() {
@@ -13,7 +13,7 @@ class App extends React.Component {
           <h1 className="App-title">Welcome to React</h1>          
         </header>
         
-        <Man2/>
+        <ManWrapper/>
       </div>
     );
   }
