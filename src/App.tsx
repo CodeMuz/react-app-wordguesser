@@ -15,13 +15,12 @@ import HangmanFormWrapper from "./man/manwrapper";
     "gigantic",
     "incompetent",
     "cast",
-    "waggish",
     "super"
   ];
   return words[Math.floor(Math.random() * words.length)].toUpperCase();
 };
 
-(global as any).word = (global as any).generateNewWord(); 
+(global as any).word = (global as any).generateNewWord();
 
 global.console.log((global as any).word);
 class App extends React.Component {
@@ -29,7 +28,7 @@ class App extends React.Component {
     return (
       <div className="App">
         <header className="App-header">
-          <h1 className="App-title">Hangman game for pintaSilgo</h1>
+          <h1 className="App-title">Word Guesser Game</h1>
         </header>
 
         <HangmanFormWrapper />

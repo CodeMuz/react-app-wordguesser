@@ -31,8 +31,8 @@ class HangmanForm extends React.Component<IMyProps, IMyComponentState> {
     return {
       color: "blue",
       fontSize: "2em",
-      height: "100px",
-      width: "100px"
+      height: "50px",
+      width: "50px"
     };
   }
 
