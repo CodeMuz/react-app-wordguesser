@@ -1,16 +1,8 @@
 import { combineReducers } from "redux";
-import { SET_NAME } from "../actions";
-
-const namesReducer = (state: any = [], action: any) => {
-  // global.console.log(action);
-  switch (action.type) {
-    case SET_NAME:
-      return [...state,action.payload];
-    default:
-      return state;
-  }
-};
+import { namesReducer } from './names_reducer';
+import { scoreReducer } from './score_reducer';
 
 export default combineReducers({
-  namesReducer
+  namesReducer,
+  scoreReducer
 });
