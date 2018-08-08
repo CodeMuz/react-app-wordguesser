@@ -1,5 +1,6 @@
 import { GAME_OVER, GUESS_LETTER, GUESS_WORD } from "../actions";
 
+const word = (global as any).word;
 export const namesReducer = (
   state: any = { errors: 0, letters: [] },
   action: any
@@ -8,15 +9,29 @@ export const namesReducer = (
   switch (action.type) {
     case GUESS_LETTER:
       const letter = action.payload.toUpperCase(0);
-      if ((global as any).word.includes(letter)) {
-        const foundLetter = {
-          correct: true,
-          letter,          
-          position: (global as any).word.indexOf(letter) + 1
-        };
+
+      if (word.includes(letter)) {
+        const locations = [];
+        let i = 0;
+        for (i = 0; i < word.length; i++) {
+          if (word[i] === letter) {
+            locations.push(i);
+          }
+        }
+
+        const foundLetters: any = [];
+
+        locations.map((index: number) => {
+          foundLetters.push({
+            correct: true,
+            letter,
+            position: index + 1
+          });
+        });
+
         return {
           errors: state.errors,
-          letters: [...state.letters, foundLetter]
+          letters: [...state.letters, ...foundLetters]
         };
       } else {
         return {
@@ -26,7 +41,7 @@ export const namesReducer = (
             {
               correct: false,
               letter,
-              position: -1,              
+              position: -1
             }
           ]
         };
@@ -44,9 +59,9 @@ export const namesReducer = (
         };
       }
     case GAME_OVER:
-      (global as any).word = (global as any).generateNewWord();
       return { errors: 0, letters: [] };
-      (global as any).alert("The word was: " + (global as any).word);
+      (global as any).alert("The word was: " + word);
+      (global as any).word = (global as any).generateNewWord();
     default:
       return state;
   }

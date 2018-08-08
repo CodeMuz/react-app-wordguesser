@@ -4,8 +4,7 @@ import { resetGame } from "../actions";
 
 const mapStateToProps = (state: any) => {
   return {
-    game: state.namesReducer
-    // errors: state.scoreReducer
+    game: state.namesReducer    
   };
 };
 
@@ -30,6 +29,8 @@ const List: React.StatelessComponent<IListProps> = props => {
     letterBoxes.push('');
   }
 
+  let countCorrect = 0;
+
   const names = props.game.letters.map((letter: ILetter, index: number) => {
     const letterPos = letter.position;
 
@@ -37,9 +38,10 @@ const List: React.StatelessComponent<IListProps> = props => {
 
     let letterString = "";
 
-    letterBoxes[letterPos - 1] = letter.correct ? letter.letter : "";
+    letterBoxes[letterPos - 1] = letter.correct ? letter.letter : "";    
 
     if (letter.correct) {
+      countCorrect ++;
       letterString = "Correct! It does contain letter: " + letter.letter;
     } else {
       letterString = "Does not contain letter: " + letter.letter;
@@ -51,22 +53,25 @@ const List: React.StatelessComponent<IListProps> = props => {
       </p>
     );
   });
-  
+
   const letterBoxEle = letterBoxes.map((letter, index) => {
     return <input className="letter" key={index} value={letter} readOnly={true}/>;
   });
-
-  const isGameOver = props.game.errors === MAX_GUESSED - 1 ? "GAME OVER" : "";
-
+  
   if (props.game.errors === MAX_GUESSED) {
+    (global as any).alert('Game Over');
     props.resetGame();
   }
+  if(countCorrect === length){
+    (global as any).alert('Well done');
+    props.resetGame();
+  } 
 
   return (
     <div>
       <h1>Word Length: {(global as any).word.length}</h1>
       <h1>{letterBoxEle}</h1>
-      <h1>Guesses: {`${props.game.errors} ${isGameOver}`} / 10</h1>
+      <h1>Guesses: {`${props.game.errors}`} / 9</h1>
       <div>{names}</div>
     </div>
   );

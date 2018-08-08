@@ -10,10 +10,13 @@ interface IMyComponentState {
 interface IMyProps {
   guessLetter: (name: string) => any;
   guessWord: (name: string) => any;
-  newGame:boolean;
+  newGame:boolean;  
 }
 
 class HangmanForm extends React.Component<IMyProps, IMyComponentState> {
+
+  public input:any = React.createRef();
+
   constructor(props: any) {
     super(props);
     this.state = {
@@ -24,8 +27,20 @@ class HangmanForm extends React.Component<IMyProps, IMyComponentState> {
     this.onWordUpdate = this.onWordUpdate.bind(this);
     this.componentGuessLetter = this.componentGuessLetter.bind(this);
     this.componentGuessWord = this.componentGuessWord.bind(this);
+    
+    this.focus = this.focus.bind(this);
   }
   
+  
+
+  public focus() {
+    // Explicitly focus the text input using the raw DOM API
+    // Note: we're accessing "current" to get the DOM node
+    if(this.input.current){
+      this.input.current.focus();
+    }
+    
+  }
 
   public getStyles() {
     return {
@@ -55,6 +70,7 @@ class HangmanForm extends React.Component<IMyProps, IMyComponentState> {
             maxLength={1}
             value={this.state.letter}
             onChange={this.onUpdate}
+            ref={this.input}
           />
           <button style={this.getStylesButton()} onClick={this.componentGuessLetter}>
             Guess a Letter
@@ -87,6 +103,7 @@ class HangmanForm extends React.Component<IMyProps, IMyComponentState> {
     this.setState({
       letter: ""
     });
+    this.focus();
   }
   private componentGuessWord(evt: any) {
     evt.preventDefault();    
@@ -95,11 +112,6 @@ class HangmanForm extends React.Component<IMyProps, IMyComponentState> {
   }
 }
 
-// const mapStateToProps = (state:any) => {
-//   return {
-//     newGame : (state.namesReducer.letters.length === 0) ? true: false
-//   }
-// } 
 const HangmanFormWrapper = connect(
   null,
   { guessLetter,guessWord }
