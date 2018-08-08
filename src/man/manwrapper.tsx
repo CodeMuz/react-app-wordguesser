@@ -1,70 +1,108 @@
 import * as React from "react";
 import { connect } from "react-redux";
-import { setName } from "../actions";
+import { guessLetter, guessWord } from "../actions";
 
 interface IMyComponentState {
-  value: string;
+  letter: string;
+  word: string;
 }
 
 interface IMyProps {
-  setName: (name: string) => any;
+  guessLetter: (name: string) => any;
+  guessWord: (name: string) => any;
+  newGame:boolean;
 }
 
-class AddPerson extends React.Component<IMyProps, IMyComponentState> {
+class HangmanForm extends React.Component<IMyProps, IMyComponentState> {
   constructor(props: any) {
     super(props);
     this.state = {
-      value: ""
+      letter: "",
+      word: ""
     };
     this.onUpdate = this.onUpdate.bind(this);
-    this.savePerson = this.savePerson.bind(this);
+    this.onWordUpdate = this.onWordUpdate.bind(this);
+    this.componentGuessLetter = this.componentGuessLetter.bind(this);
+    this.componentGuessWord = this.componentGuessWord.bind(this);
   }
+  
 
-  public getStyles(){
+  public getStyles() {
     return {
-      color:'blue',
-      fontSize:'2em',
-      height:'100px',
-      width:'100px'     
+      color: "blue",
+      fontSize: "2em",
+      height: "100px",
+      width: "100px"
     };
   }
 
-  public getStylesButton(){
+  public getStylesButton() {
     return {
-      color:'blue',
-      fontSize:'1em',
-      height:'100px',
-      width:'100px'     
+      color: "blue",
+      fontSize: "1em",
+      height: "100px",
+      verticalAlign: 'top',
+      width: "100px",      
     };
   }
 
   public render() {
     return (
       <div>
-        <form onSubmit={this.savePerson}>
-          <input style={this.getStyles()} maxLength={1} value={this.state.value} onChange={this.onUpdate} />
-          <button style={this.getStylesButton()} onClick={this.savePerson}>Make a guess</button>
+        <form onSubmit={this.componentGuessLetter}>
+          <input
+            style={this.getStyles()}
+            maxLength={1}
+            value={this.state.letter}
+            onChange={this.onUpdate}
+          />
+          <button style={this.getStylesButton()} onClick={this.componentGuessLetter}>
+            Guess a Letter
+          </button>
+        </form>
+        <form onSubmit={this.componentGuessWord}>
+          <input
+            value={this.state.word}
+            onChange={this.onWordUpdate}
+          />
+          <button onClick={this.componentGuessWord}>
+            Make A Guess
+          </button>
         </form>
       </div>
     );
   }
 
-  private onUpdate(evt: any) {
-    this.setState({ value: evt.target.value });
+  private onWordUpdate(evt: any) {
+    this.setState({ word: evt.target.value });
   }
 
-  private savePerson(evt:any) {
+  private onUpdate(evt: any) {
+    this.setState({ letter: evt.target.value });
+  }
+
+  private componentGuessLetter(evt: any) {
     evt.preventDefault();
-    this.props.setName(this.state.value);
+    this.props.guessLetter(this.state.letter);
     this.setState({
-      value:''
+      letter: ""
     });
+  }
+  private componentGuessWord(evt: any) {
+    evt.preventDefault();    
+    this.props.guessWord(this.state.word);
+    this.setState({word:""});
   }
 }
 
-const ManWrapper = connect(
+// const mapStateToProps = (state:any) => {
+//   return {
+//     newGame : (state.namesReducer.letters.length === 0) ? true: false
+//   }
+// } 
+const HangmanFormWrapper = connect(
   null,
-  { setName }
-)(AddPerson);
+  { guessLetter,guessWord }
+)(HangmanForm);
 
-export default ManWrapper;
+export default HangmanFormWrapper;

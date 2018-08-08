@@ -1,19 +1,38 @@
 import * as React from "react";
 import "./App.css";
 
-// import logo from "./logo.svg";
 import List from "./man/list";
-import ManWrapper from "./man/manwrapper";
+import HangmanFormWrapper from "./man/manwrapper";
 
+(global as any).generateNewWord = () => {
+  const words = [
+    "scary",
+    "macho",
+    "bang",
+    "rush",
+    "clap",
+    "impossible",
+    "gigantic",
+    "incompetent",
+    "cast",
+    "waggish",
+    "super"
+  ];
+  return words[Math.floor(Math.random() * words.length)].toUpperCase();
+};
+
+(global as any).word = (global as any).generateNewWord(); 
+
+global.console.log((global as any).word);
 class App extends React.Component {
   public render() {
     return (
       <div className="App">
         <header className="App-header">
-          <h1 className="App-title">Hangman game for Ana</h1>
+          <h1 className="App-title">Hangman game for pintaSilgo</h1>
         </header>
 
-        <ManWrapper />
+        <HangmanFormWrapper />
         <List />
       </div>
     );

@@ -1,16 +1,47 @@
-import { SET_NAME } from "../actions";
+import { GAME_OVER, GUESS_LETTER, GUESS_WORD } from "../actions";
 
-export const namesReducer = (state: any = [], action: any) => {
-  const word = "LOVE";
+export const namesReducer = (
+  state: any = { errors: 0, letters: [] },
+  action: any
+) => {
+  global.console.log((global as any).word);
   switch (action.type) {
-    case SET_NAME:
+    case GUESS_LETTER:
       const letter = action.payload.toUpperCase(0);
-      if (word.includes(letter)) {
-        const foundLetter = { letter: 'Correct! It does contain letter: ' + letter, position: word.indexOf(letter) + 1 };
-        return [...state, foundLetter];
+      if ((global as any).word.includes(letter)) {
+        const foundLetter = {
+          letter: "Correct! It does contain letter: " + letter,
+          position: (global as any).word.indexOf(letter) + 1
+        };
+        return {
+          errors: state.errors,
+          letters: [...state.letters, foundLetter]
+        };
       } else {
-        return [...state,{letter:'Does not contain letter: ' + letter,position:-1}];
+        return {
+          errors: state.errors + 1,
+          letters: [
+            ...state.letters,
+            { letter: "Does not contain letter: " + letter, position: -1 }
+          ]
+        };
       }
+    case GUESS_WORD:
+      if (action.payload.toUpperCase() === (global as any).word) {
+        (global as any).alert('YOU WIN!');
+        (global as any).word = (global as any).generateNewWord();
+        return { errors: 0, letters: [] };  
+      } else {
+        (global as any).alert('Sorry wrong word, Try again');        
+        return {
+          errors: state.errors + 1,
+          letters: [...state.letters]
+        };
+      }
+    case GAME_OVER:
+      (global as any).word = (global as any).generateNewWord();
+      return { errors: 0, letters: [] };
+      global.console.log("error");
     default:
       return state;
   }
