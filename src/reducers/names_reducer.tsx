@@ -41,7 +41,7 @@ export const namesReducer = (
     case GAME_OVER:
       (global as any).word = (global as any).generateNewWord();
       return { errors: 0, letters: [] };
-      global.console.log("error");
+      (global as any).alert('The word was: ' + (global as any).word);
     default:
       return state;
   }
