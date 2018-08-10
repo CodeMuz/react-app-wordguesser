@@ -4,7 +4,7 @@ import { resetGame } from "../actions";
 
 const mapStateToProps = (state: any) => {
   return {
-    game: state.namesReducer    
+    game: state.gameReducer
   };
 };
 
@@ -22,11 +22,11 @@ interface IListProps {
 const List: React.StatelessComponent<IListProps> = props => {
   const MAX_GUESSED = 10;
 
-  const letterBoxes:string[] = [];
+  const letterBoxes: string[] = [];
   const length = (global as any).word.length;
 
   for (let i = 0; i < length; i++) {
-    letterBoxes.push('');
+    letterBoxes.push("");
   }
 
   let countCorrect = 0;
@@ -38,10 +38,10 @@ const List: React.StatelessComponent<IListProps> = props => {
 
     let letterString = "";
 
-    letterBoxes[letterPos - 1] = letter.correct ? letter.letter : "";    
+    letterBoxes[letterPos - 1] = letter.correct ? letter.letter : "";
 
     if (letter.correct) {
-      countCorrect ++;
+      countCorrect++;
       letterString = "Correct! It does contain letter: " + letter.letter;
     } else {
       letterString = "Does not contain letter: " + letter.letter;
@@ -55,17 +55,19 @@ const List: React.StatelessComponent<IListProps> = props => {
   });
 
   const letterBoxEle = letterBoxes.map((letter, index) => {
-    return <input className="letter" key={index} value={letter} readOnly={true}/>;
+    return (
+      <input className="letter" key={index} value={letter} readOnly={true} />
+    );
   });
-  
+
   if (props.game.errors === MAX_GUESSED) {
-    (global as any).alert('Game Over');
+    (global as any).alert("Game Over");
     props.resetGame();
   }
-  if(countCorrect === length){
-    (global as any).alert('Well done');
+  if (countCorrect === length) {
+    (global as any).alert("Well done");
     props.resetGame();
-  } 
+  }
 
   return (
     <div>

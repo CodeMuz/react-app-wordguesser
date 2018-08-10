@@ -1,11 +1,19 @@
-import { GAME_OVER, GUESS_LETTER, GUESS_WORD } from "../actions";
+import { GAME_OVER, GUESS_LETTER } from "../actions";
+
+interface IGameReducer {  
+    errors: number,
+    letters: Array<{
+      correct:boolean,
+      letter:string,
+      position:number
+    }>
+}
 
 const word = (global as any).word;
-export const namesReducer = (
-  state: any = { errors: 0, letters: [] },
+export const gameReducer = (
+  state = { errors: 0, letters: [] },
   action: any
-) => {
-  // global.console.log((global as any).word);
+):IGameReducer => {
   switch (action.type) {
     case GUESS_LETTER:
       const letter = action.payload.toUpperCase(0);
@@ -30,8 +38,8 @@ export const namesReducer = (
         });
 
         return {
-          errors: state.errors,
-          letters: [...state.letters, ...foundLetters]
+          errors: state.errors,          
+          letters: [...state.letters, ...foundLetters]          
         };
       } else {
         return {
@@ -44,18 +52,6 @@ export const namesReducer = (
               position: -1
             }
           ]
-        };
-      }
-    case GUESS_WORD:
-      if (action.payload.toUpperCase() === (global as any).word) {
-        (global as any).alert("YOU WIN!");
-        (global as any).word = (global as any).generateNewWord();
-        return { errors: 0, letters: [] };
-      } else {
-        (global as any).alert("Sorry wrong word, Try again");
-        return {
-          errors: state.errors + 1,
-          letters: [...state.letters]
         };
       }
     case GAME_OVER:

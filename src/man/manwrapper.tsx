@@ -1,6 +1,6 @@
 import * as React from "react";
 import { connect } from "react-redux";
-import { guessLetter, guessWord } from "../actions";
+import { guessLetter, newLetter } from "../actions";
 
 interface IMyComponentState {
   letter: string;
@@ -9,7 +9,7 @@ interface IMyComponentState {
 
 interface IMyProps {
   guessLetter: (name: string) => any;
-  guessWord: (name: string) => any;
+  newLetter: (name: string) => any;
   newGame:boolean;  
 }
 
@@ -24,9 +24,7 @@ class HangmanForm extends React.Component<IMyProps, IMyComponentState> {
       word: ""
     };
     this.onUpdate = this.onUpdate.bind(this);
-    this.onWordUpdate = this.onWordUpdate.bind(this);
     this.componentGuessLetter = this.componentGuessLetter.bind(this);
-    this.componentGuessWord = this.componentGuessWord.bind(this);
     
     this.focus = this.focus.bind(this);
   }
@@ -76,21 +74,8 @@ class HangmanForm extends React.Component<IMyProps, IMyComponentState> {
             Guess a Letter
           </button>
         </form>
-        <form onSubmit={this.componentGuessWord}>
-          <input
-            value={this.state.word}
-            onChange={this.onWordUpdate}
-          />
-          <button onClick={this.componentGuessWord}>
-            Make A Guess
-          </button>
-        </form>
       </div>
     );
-  }
-
-  private onWordUpdate(evt: any) {
-    this.setState({ word: evt.target.value });
   }
 
   private onUpdate(evt: any) {
@@ -100,21 +85,17 @@ class HangmanForm extends React.Component<IMyProps, IMyComponentState> {
   private componentGuessLetter(evt: any) {
     evt.preventDefault();
     this.props.guessLetter(this.state.letter);
+    this.props.newLetter(this.state.letter);
     this.setState({
       letter: ""
     });
     this.focus();
   }
-  private componentGuessWord(evt: any) {
-    evt.preventDefault();    
-    this.props.guessWord(this.state.word);
-    this.setState({word:""});
-  }
 }
 
 const HangmanFormWrapper = connect(
   null,
-  { guessLetter,guessWord }
+  { guessLetter, newLetter }
 )(HangmanForm);
 
 export default HangmanFormWrapper;

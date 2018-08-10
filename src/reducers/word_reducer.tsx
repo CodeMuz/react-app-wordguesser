@@ -1,11 +1,10 @@
-// // has the word
+import { NEW_WORD } from "../actions";
 
-// // SET WORD ACTION
-
-// const wordReducer = (state = "", action: any) => {
-
-//   switch(action.type){
-//     case : 
-//   }
-
-// };
+export const wordReducer = (state = [], action: any) => {
+  switch (action.type) {
+    case NEW_WORD:
+      return action.payload;
+    default:
+      return state;
+  }
+};
