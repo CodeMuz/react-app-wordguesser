@@ -17,45 +17,47 @@
 
 button {
   background: blue;
-  color:white !important;
+  color: white !important;
   border-radius: 10px;
   font-weight: 700;
-  padding:10px;  
+  padding: 10px;
 }
 
 input {
-  padding:10px;
-  margin:10px;
+  padding: 10px;
+  margin: 7px;
   text-align: center;
 }
 
-input.letter {
-  width:30px;  
+input.letterOutput {
+  width: 40px;
   font-size: 1em;
 }
 
 input.letterInput {
-  color:lue;
-  font-size:2em;
-  height:50px;
-  width:50px;
+  color: blue;
+  font-size: 2em;
+  height: 50px;
+  width: 50px;
 }
 
 button.guessLetter {
-  color:blue;
+  color: blue;
   font-size: 1em;
-  height:100px;
+  height: 100px;
   vertical-align: top;
   width: 100px;
 }
 
 div.wrongLetters {
-  color:red;  
+  color: red;
+  height:50px;
 }
+
 div.wrongLetters span {
-  margin:5px;
-  width:30px;  
-  font-size: 1em;
+  margin: 5px;
+  width: 30px;
+  font-size: 1.5em;
 }
 
 .App-title {
@@ -67,6 +69,10 @@ div.wrongLetters span {
 }
 
 @keyframes App-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }

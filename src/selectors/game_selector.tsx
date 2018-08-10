@@ -3,10 +3,15 @@ import { createSelector } from "reselect";
 const wordSelector = (state: any) => state.word;
 const lettersSelector = (state: any) => state.letters;
 
-const result = (word: string, letters: string) => {  
-  const correctLetters: string[] = word.split('').map(() => ' ');
+interface IResult {
+  correctLetters: string[];
+  wrongLetters: string[];
+}
+
+const result = (word: string, letters: string): IResult => {
+  const correctLetters: string[] = word.split("").map(() => " ");
   const wrongLetters: string[] = [];
-  const guess = { correctLetters, wrongLetters };  
+  const guess = { correctLetters, wrongLetters };
 
   for (const letter of letters) {
     let found = false;
@@ -16,13 +21,14 @@ const result = (word: string, letters: string) => {
         found = true;
       }
     }
-    if(found === false){
+    if (found === false) {
       guess.wrongLetters.push(letter);
     }
   }
 
   return guess;
 };
+
 export const resultSelector = createSelector(
   wordSelector,
   lettersSelector,

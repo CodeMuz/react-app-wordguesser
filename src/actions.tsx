@@ -1,26 +1,38 @@
 export const NEW_LETTER = "NEW_LETTER";
-export const NEW_WORD = 'NEW_WORD';
-import Dictionary from './dictionary';
+export const NEW_WORD = "NEW_WORD";
+export const UPDATE_SCORE = "UPDATE_SCORE";
+import Dictionary from "./dictionary";
 
-// interface InterfaceSetName {
-//   type: typeof GUESS_LETTER;
-//   payload: string;
-// }
+interface InterfaceNewLetter {
+  type: typeof NEW_LETTER;
+  payload: string;
+}
 
-export const newLetter = (letter: string) => {
+interface InterfaceNewWord {
+  type: typeof NEW_WORD;
+  payload: string;
+}
+
+export const newLetter = (letter: string): InterfaceNewLetter => {
   return {
     payload: letter,
     type: NEW_LETTER
   };
 };
 
-export const newWord = (previous:string) => {
-  
-  global.console.log('few');
-  const word = Dictionary.getNewWord(previous);
-  global.console.log(word);
+export const newWord = (previous?: string): InterfaceNewWord => {
   return {
-    payload: word,
+    payload: Dictionary.getNewWord(previous),
     type: NEW_WORD
-  }  
-}
+  };
+};
+
+export const updateScore = (wrongLetters: string[], wordLength: number) => {
+  
+  const score = 1 - wrongLetters.length / (wrongLetters.length + wordLength);
+
+  return {
+    payload: score,
+    type: UPDATE_SCORE
+  };
+};

@@ -1,11 +1,15 @@
 import * as React from "react";
 import { connect } from "react-redux";
-import { newWord } from "../actions";
+import { newWord, updateScore } from "../actions";
 import { resultSelector } from "../selectors/game_selector";
+import LetterBox from "./letter_box";
+import Score from "./score";
+import WrongLetterBox from "./wrong_letter_box";
 
 const mapStateToProps = (state: any) => {
   return {
     result: resultSelector(state),
+    score: state.score,
     word: state.word
   };
 };
@@ -13,43 +17,38 @@ const mapStateToProps = (state: any) => {
 interface IListProps {
   result: { correctLetters: string[]; wrongLetters: string[] };
   word: string;
-  newWord:(word:string) => {}
+  newWord: (word: string) => {};
+  updateScore: (wrongLetters:string[],length:number) => {};
+  score: {scoreVal:number,words:number};
 }
 
 class List extends React.Component<IListProps> {
-      
-  constructor(props:any){
+  constructor(props: any) {
     super(props);
   }
 
-  public componentDidUpdate(){
-    if(this.props.result.correctLetters.join('') === this.props.word){
-      this.props.newWord(this.props.word);    
+  public componentDidUpdate() {
+
+    const hasWon = this.props.word === this.props.result.correctLetters.join("");
+
+    if (hasWon) {
+      this.props.newWord(this.props.word);
+      this.props.updateScore(this.props.result.wrongLetters,this.props.word.length);      
     }
   }
 
-  public render(){
-    const letterBoxEle = this.props.result.correctLetters.map((letter, index) => {
-      return (
-        <input className="letter" key={index} value={letter} readOnly={true} />
-      );
-    });
-  
-    const wrongLetters = this.props.result.wrongLetters.map((letter, index) => {
-      return <span key={index}>{letter}</span>;
-    });
-  
+  public render() {    
     return (
       <div>
-        <h1>{letterBoxEle}</h1>
-        <div className="wrongLetters">{wrongLetters}</div>
+        <LetterBox correctLetters={this.props.result.correctLetters} />
+        <WrongLetterBox wrongLetters={this.props.result.wrongLetters} />        
+        <Score score={this.props.score} />
       </div>
     );
   }
-  
-};
+}
 
 export default connect(
   mapStateToProps,
-  { newWord }
+  { newWord, updateScore }
 )(List);
