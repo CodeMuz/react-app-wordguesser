@@ -1,14 +1,12 @@
 import * as React from "react";
 import { connect } from "react-redux";
-import { guessLetter, newLetter } from "../actions";
+import { newLetter } from "../actions";
 
 interface IMyComponentState {
-  letter: string;
-  word: string;
+  letter: string;  
 }
 
 interface IMyProps {
-  guessLetter: (name: string) => any;
   newLetter: (name: string) => any;
   newGame: boolean;
 }
@@ -19,8 +17,7 @@ class HangmanForm extends React.Component<IMyProps, IMyComponentState> {
   constructor(props: any) {
     super(props);
     this.state = {
-      letter: "",
-      word: ""
+      letter: ""
     };
     this.onUpdate = this.onUpdate.bind(this);
     this.componentGuessLetter = this.componentGuessLetter.bind(this);
@@ -59,7 +56,6 @@ class HangmanForm extends React.Component<IMyProps, IMyComponentState> {
 
   private componentGuessLetter(evt: any) {
     evt.preventDefault();
-    this.props.guessLetter(this.state.letter);
     this.props.newLetter(this.state.letter);
     this.setState({
       letter: ""
@@ -70,7 +66,7 @@ class HangmanForm extends React.Component<IMyProps, IMyComponentState> {
 
 const HangmanFormWrapper = connect(
   null,
-  { guessLetter, newLetter }
+  { newLetter }
 )(HangmanForm);
 
 export default HangmanFormWrapper;

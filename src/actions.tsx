@@ -1,27 +1,11 @@
-export const GUESS_LETTER = "GUESS_LETTER";
-export const GAME_OVER = "GAME_OVER";
 export const NEW_LETTER = "NEW_LETTER";
 export const NEW_WORD = 'NEW_WORD';
 import Dictionary from './dictionary';
 
-interface InterfaceSetName {
-  type: typeof GUESS_LETTER;
-  payload: string;
-}
-
-export const guessLetter = (name: string): InterfaceSetName => {
-  return {
-    payload: name,
-    type: GUESS_LETTER
-  };
-};
-
-export const resetGame = () => {
-  return {
-    payload: "",
-    type: GAME_OVER
-  };
-};
+// interface InterfaceSetName {
+//   type: typeof GUESS_LETTER;
+//   payload: string;
+// }
 
 export const newLetter = (letter: string) => {
   return {
@@ -30,10 +14,13 @@ export const newLetter = (letter: string) => {
   };
 };
 
-
-export const newWord = () => {
+export const newWord = (previous:string) => {
+  
+  global.console.log('few');
+  const word = Dictionary.getNewWord(previous);
+  global.console.log(word);
   return {
-    payload: Dictionary.getNewWord(),
+    payload: word,
     type: NEW_WORD
   }  
 }

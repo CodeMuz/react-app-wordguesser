@@ -1,15 +1,15 @@
-import { NEW_LETTER,NEW_WORD } from "../actions";
+import { NEW_LETTER, NEW_WORD } from "../actions";
 
-const letterReducer = (state:string = '', action: any) => {
+const letterReducer = (state: string = "", action: any) => {
   switch (action.type) {
     case NEW_LETTER:
       const letter = action.payload.toUpperCase();
-      if(state.includes(letter)){
+      if (state.includes(letter)) {
         return state;
       }
       return state + letter;
     case NEW_WORD:
-      return '';
+      return "";
     default:
       return state;
   }

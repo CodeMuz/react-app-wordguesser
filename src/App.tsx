@@ -3,8 +3,8 @@ import "./App.css";
 
 import {connect} from 'react-redux';
 import {newWord} from './actions';
-import List from "./man/list";
 import HangmanFormWrapper from "./man/manwrapper";
+import List from "./man/output_view";
 
 interface IAppProps {
   newWord(previous?:string):string;
