@@ -1,15 +1,23 @@
 import * as React from "react";
 import "./App.css";
 
+import {connect} from 'react-redux';
+import {newWord} from './actions';
 import List from "./man/list";
 import HangmanFormWrapper from "./man/manwrapper";
-import {newWord} from './actions';
-import {connect} from 'react-redux';
 
-class App extends React.Component {
+interface IAppProps {
+  newWord(previous?:string):string;
+}
 
-  componentDidMount(){
-    newWord();
+class App extends React.Component<IAppProps> {
+  
+  constructor(props:any){
+    super(props);
+  }
+
+  public componentDidMount(){
+    this.props.newWord();
   }
 
   public render() {

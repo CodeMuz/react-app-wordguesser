@@ -1,8 +1,10 @@
 import { combineReducers } from "redux";
-import { gameReducer } from './game_reducer';
 import letterReducer from './letter_reducer';
+import wordReducer from './word_reducer';
 
-export default combineReducers({
-  gameReducer,
-  letterReducer
+const rootReducer = combineReducers({
+  letters : letterReducer,
+  word : wordReducer
 });
+
+export default rootReducer;
