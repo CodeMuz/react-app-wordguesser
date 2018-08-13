@@ -18,10 +18,12 @@ it("Renders correctly", () => {
 
   const output = mount(
     <OutputView
+      gameOver={newWord}
       result={currentResult}
       word={word}
       newWord={newWord}
       score={score}
+      errorsAllowed={5}
     />
   );
 
@@ -44,6 +46,7 @@ it("Calls newWord Action when word is correct", () => {
   const word = "complete";
   const output = mount(
     <OutputView
+      gameOver={jest.fn()}
       result={{
         correctLetters: word.split(""),
         wrongLetters: []
@@ -51,6 +54,7 @@ it("Calls newWord Action when word is correct", () => {
       word={word}
       newWord={mockFunction}
       score={0}
+      errorsAllowed={5}
     />
   );
 

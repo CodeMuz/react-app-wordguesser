@@ -4,7 +4,7 @@ import "./App.css";
 import {connect} from 'react-redux';
 import {newWord} from '../actions';
 import HangmanFormWrapper from "../components/guess_form";
-import List from "../components/output/output_view";
+import OutPutView from "../components/output/output_view";
 
 interface IAppProps {
   newWord(previous?:string):string;
@@ -28,7 +28,7 @@ class App extends React.Component<IAppProps> {
         </header>
 
         <HangmanFormWrapper />
-        <List />
+        <OutPutView />
       </div>
     );
   }

@@ -1,4 +1,4 @@
-import { NEW_LETTER, NEW_WORD } from "../actions";
+import { GAME_OVER, NEW_LETTER, NEW_WORD } from "../actions";
 
 const letterReducer = (state: string = "", action: any) => {
   switch (action.type) {
@@ -9,6 +9,8 @@ const letterReducer = (state: string = "", action: any) => {
       }
       return state + letter;
     case NEW_WORD:
+      return "";
+    case GAME_OVER:
       return "";
     default:
       return state;
