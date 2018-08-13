@@ -15,10 +15,11 @@ it("Renders correctly", () => {
 
   // Actions
   const newWord = (previous?: string) => "newword";
+  const gameOver = (finalScore:number) => { return; }
 
   const output = mount(
     <OutputView
-      gameOver={newWord}
+      gameOver={gameOver}
       result={currentResult}
       word={word}
       newWord={newWord}

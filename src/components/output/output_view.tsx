@@ -17,7 +17,7 @@ const mapStateToProps = (state: any) => {
 
 interface IListProps {
   errorsAllowed: number;
-  gameOver: () => {};
+  gameOver: (score:number) => void;
   result: { correctLetters: string[]; wrongLetters: string[] };
   word: string;
   newWord: (word: string) => {};
@@ -38,7 +38,7 @@ export class OutputView extends React.Component<IListProps>
       this.props.newWord(this.props.word);
     }
     if (this.guessesRemaining() === 0) {
-      this.props.gameOver();
+      this.props.gameOver(this.props.score);
       this.props.newWord(this.props.word);
     }
   }
