@@ -8,25 +8,24 @@ interface IResult {
   wrongLetters: string[];
 }
 
-const result = (word: string, letters: string): IResult => {
+export const result = (word: string, letters: string): IResult => {
   const correctLetters: string[] = word.split("").map(() => " ");
-  const wrongLetters: string[] = [];
-  const guess = { correctLetters, wrongLetters };
+  const wrongLetters: string[] = [];  
 
   for (const letter of letters) {
     let found = false;
     for (let i = 0; i < word.length; i++) {
       if (letter === word[i]) {
-        guess.correctLetters[i] = letter;
+        correctLetters[i] = letter;
         found = true;
       }
     }
     if (found === false) {
-      guess.wrongLetters.push(letter);
+      wrongLetters.push(letter);
     }
   }
 
-  return guess;
+  return { correctLetters, wrongLetters };
 };
 
 export const resultSelector = createSelector(

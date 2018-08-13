@@ -1,8 +1,8 @@
 import * as React from "react";
 import { connect } from "react-redux";
-import { newWord, updateScore } from "../actions";
-import { resultSelector } from "../selectors/game_selector";
-import LetterBox from "./letter_box";
+import { newWord } from "../../actions";
+import { resultSelector } from "../../selectors/game_selector";
+import LetterBox from "./letter_box/letter_box";
 import Score from "./score";
 import WrongLetterBox from "./wrong_letter_box";
 
@@ -17,31 +17,24 @@ const mapStateToProps = (state: any) => {
 interface IListProps {
   result: { correctLetters: string[]; wrongLetters: string[] };
   word: string;
-  newWord: (word: string) => {};
-  updateScore: (wrongLetters:string[],length:number) => {};
-  score: {scoreVal:number,words:number};
+  newWord: (word: string) => {};  
+  score: number;
 }
 
-class List extends React.Component<IListProps> {
-  constructor(props: any) {
-    super(props);
-  }
-
+export class OutputView extends React.Component<IListProps> {
   public componentDidUpdate() {
-
-    const hasWon = this.props.word === this.props.result.correctLetters.join("");
-
+    const hasWon =
+      this.props.word === this.props.result.correctLetters.join("");
     if (hasWon) {
       this.props.newWord(this.props.word);
-      this.props.updateScore(this.props.result.wrongLetters,this.props.word.length);      
     }
   }
 
-  public render() {    
+  public render() {
     return (
       <div>
         <LetterBox correctLetters={this.props.result.correctLetters} />
-        <WrongLetterBox wrongLetters={this.props.result.wrongLetters} />        
+        <WrongLetterBox wrongLetters={this.props.result.wrongLetters} />
         <Score score={this.props.score} />
       </div>
     );
@@ -50,5 +43,5 @@ class List extends React.Component<IListProps> {
 
 export default connect(
   mapStateToProps,
-  { newWord, updateScore }
-)(List);
+  { newWord }
+)(OutputView);

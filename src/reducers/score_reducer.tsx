@@ -1,16 +1,9 @@
-import { UPDATE_SCORE } from "../actions";
+import { NEW_WORD } from "../actions";
 
-export default (state = { scoreVal: 0, words: 0 }, action: any) => {
+export default (state = -1, action: any) => {
   switch (action.type) {
-    case UPDATE_SCORE:
-      if (state.scoreVal === 0) {
-        return { scoreVal: action.payload * 100, words: 1 };
-      } else {
-        return {
-          scoreVal: (state.scoreVal + action.payload * 100) / 2,
-          words: state.words + 1
-        };
-      }
+    case NEW_WORD:
+      return state + 1;
     default:
       return state;
   }

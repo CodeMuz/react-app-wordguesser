@@ -11,7 +11,7 @@ interface IMyProps {
   newGame: boolean;
 }
 
-class HangmanForm extends React.Component<IMyProps, IMyComponentState> {
+class GuessForm extends React.Component<IMyProps, IMyComponentState> {
   public input: any = React.createRef();
 
   constructor(props: any) {
@@ -64,9 +64,9 @@ class HangmanForm extends React.Component<IMyProps, IMyComponentState> {
   }
 }
 
-const HangmanFormWrapper = connect(
+const GuessFormWrapper = connect(
   null,
   { newLetter }
-)(HangmanForm);
+)(GuessForm);
 
-export default HangmanFormWrapper;
+export default GuessFormWrapper;

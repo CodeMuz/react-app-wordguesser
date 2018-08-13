@@ -1,7 +1,7 @@
 export const NEW_LETTER = "NEW_LETTER";
 export const NEW_WORD = "NEW_WORD";
 export const UPDATE_SCORE = "UPDATE_SCORE";
-import Dictionary from "./dictionary";
+import Dictionary from "../dictionary";
 
 interface InterfaceNewLetter {
   type: typeof NEW_LETTER;
@@ -27,12 +27,19 @@ export const newWord = (previous?: string): InterfaceNewWord => {
   };
 };
 
-export const updateScore = (wrongLetters: string[], wordLength: number) => {
+// export const updateScore = (wrongLetters: string[], wordLength: number) => {
   
-  const score = 1 - wrongLetters.length / (wrongLetters.length + wordLength);
+//   const score = 1 - wrongLetters.length / (wrongLetters.length + wordLength);
 
+//   return {
+//     payload: score,
+//     type: UPDATE_SCORE
+//   };
+// };
+
+export const updateScore = () => {
   return {
-    payload: score,
+    payload:'',
     type: UPDATE_SCORE
-  };
-};
+  }
+}

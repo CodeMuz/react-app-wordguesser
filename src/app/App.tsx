@@ -2,9 +2,9 @@ import * as React from "react";
 import "./App.css";
 
 import {connect} from 'react-redux';
-import {newWord} from './actions';
-import HangmanFormWrapper from "./man/manwrapper";
-import List from "./man/output_view";
+import {newWord} from '../actions';
+import HangmanFormWrapper from "../components/guess_form";
+import List from "../components/output/output_view";
 
 interface IAppProps {
   newWord(previous?:string):string;

@@ -1,5 +1,5 @@
 {
-  "name": "battle",
+  "name": "hangman",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -52,10 +52,13 @@
     "test": "node scripts/test.js --env=jsdom"
   },
   "devDependencies": {
+    "@types/enzyme": "^3.1.13",
     "@types/jest": "^23.3.1",
     "@types/node": "^10.5.5",
     "@types/react": "^16.4.7",
     "@types/react-dom": "^16.0.6",
+    "enzyme": "^3.4.1",
+    "enzyme-adapter-react-16": "^1.2.0",
     "reselect": "^3.0.1",
     "typescript": "^3.0.1"
   },
@@ -66,6 +69,7 @@
     "setupFiles": [
       "<rootDir>/config/polyfills.js"
     ],
+    "setupTestFrameworkScriptFile": "./src/setupTests.js",
     "testMatch": [
       "<rootDir>/src/**/__tests__/**/*.(j|t)s?(x)",
       "<rootDir>/src/**/?(*.)(spec|test).(j|t)s?(x)"
@@ -99,7 +103,7 @@
     ],
     "globals": {
       "ts-jest": {
-        "tsConfigFile": "/home/murray/code/react/battle/tsconfig.test.json"
+        "tsConfigFile": "tsconfig.test.json"
       }
     }
   },

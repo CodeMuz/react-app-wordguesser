@@ -1,7 +1,7 @@
 import * as React from "react";
 
 interface ILetterProps {
-  correctLetters:string[]
+  correctLetters:string[] // Looks like ['','l','y']
 }
 
 const LetterBox: React.SFC<ILetterProps> = (props: any) => {
