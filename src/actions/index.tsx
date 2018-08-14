@@ -10,7 +10,7 @@ import fetch from "cross-fetch";
 import Dictionary from "../dictionary";
 
 // const ROOT_URL = "http://localhost:1234";
-const ROOT_URL = "http://wordsearchapi.xyz";
+const ROOT_URL = "https://wordsearchapi.xyz";
 const HIGHSCORE_RESOURCE_PATH = '/highscore';
 const API_URL = `${ROOT_URL}${HIGHSCORE_RESOURCE_PATH}`;
 
