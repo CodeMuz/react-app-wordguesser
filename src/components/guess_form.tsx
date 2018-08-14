@@ -41,6 +41,7 @@ class GuessForm extends React.Component<IMyProps, IMyComponentState> {
             value={this.state.letter}
             onChange={this.onUpdate}
             ref={this.input}
+            tabIndex={0}
           />
           <button className="guessLetter" onClick={this.componentGuessLetter}>
             Guess

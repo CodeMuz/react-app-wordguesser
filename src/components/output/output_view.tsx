@@ -1,6 +1,6 @@
 import * as React from "react";
 import { connect } from "react-redux";
-import {Link} from 'react-router-dom';
+import { Link } from "react-router-dom";
 import { gameOver, newWord } from "../../actions";
 import { resultSelector } from "../../selectors/game_selector";
 import LetterBox from "./letter_box/letter_box";
@@ -18,11 +18,12 @@ const mapStateToProps = (state: any) => {
 
 interface IListProps {
   errorsAllowed: number;
-  gameOver: (score:number) => void;
+  gameOver: (score: number) => void;
   result: { correctLetters: string[]; wrongLetters: string[] };
   word: string;
   newWord: (word: string) => {};
   score: number;
+  history: any;
 }
 
 interface IOutputView {
@@ -39,8 +40,12 @@ export class OutputView extends React.Component<IListProps>
       this.props.newWord(this.props.word);
     }
     if (this.guessesRemaining() === 0) {
-      this.props.gameOver(this.props.score);
-      this.props.newWord(this.props.word);
+      if (this.props.score > 0) {
+        this.props.history.push("/savehighscore");
+      } else {
+        this.props.gameOver(this.props.score);
+        this.props.newWord(this.props.word);
+      }
     }
   }
 

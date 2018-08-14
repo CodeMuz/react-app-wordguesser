@@ -2,6 +2,7 @@ export const NEW_LETTER = "NEW_LETTER";
 export const NEW_WORD = "NEW_WORD";
 export const GAME_OVER = "GAME_OVER";
 export const FETCH_HIGHSCORES = "FETCH_HIGHSCORES";
+export const SAVE_SCORE = "SAVE_SCORE";
 
 import axios from "axios";
 import fetch from "cross-fetch";
@@ -32,30 +33,33 @@ export const newWord = (previous?: string): InterfaceNewWord => {
   };
 };
 
-export const gameOver = (score: number) => {
-  if (score > 0) {
-    axios
-      .post(`${ROOT_URL}/create`, {
-        highscore: score,
-        name: "Murray"
-      })
-      .then((result: any) => {
-        // Show Highscore page with history callback to gameOver
-        return;
-      })
-      .catch(error => {
-        // throw error
-        throw error;
-      });
-  }
+export const gameOver = () => {
   return {
     payload: "",
     type: GAME_OVER
   };
 };
 
-const recieveHighScores = (highscores: any) => {  
-  global.console.log(highscores);
+export const saveScore = (score: number, name: string, word:string, callback: any) => {
+  return (dispatch: any) => {
+    axios
+      .post(`${ROOT_URL}/create`, {
+        highscore: score,
+        name
+      })
+      .then((result: any) => {
+        dispatch(gameOver());
+        dispatch(newWord(word));
+        callback();
+      })
+      .catch(error => {
+        // throw error
+        throw error;
+      });
+  };
+};
+
+const recieveHighScores = (highscores: any) => {
   return {
     payload: highscores,
     type: FETCH_HIGHSCORES
@@ -64,14 +68,15 @@ const recieveHighScores = (highscores: any) => {
 
 export const getHighScores = () => {
   return (dispatch: any) => {
-    return fetch(`${ROOT_URL}/all`).then((response) => {
-      if (response.status !== 200) {        
-        return;
-      }
-      return response.json();
-    }).then(response => {
-      global.console.log(response);
-      dispatch(recieveHighScores(response))
-    });
+    return fetch(`${ROOT_URL}/all`)
+      .then(response => {
+        if (response.status !== 200) {
+          return;
+        }
+        return response.json();
+      })
+      .then(response => {
+        dispatch(recieveHighScores(response));
+      });
   };
 };

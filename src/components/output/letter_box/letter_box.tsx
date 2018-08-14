@@ -13,6 +13,7 @@ const LetterBox: React.SFC<ILetterProps> = (props: any) => {
         key={index}
         value={letter}
         readOnly={true}
+        tabIndex={-1}
       />
     );
   });

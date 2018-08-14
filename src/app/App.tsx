@@ -4,6 +4,7 @@ import { BrowserRouter, Link, Route, Switch } from "react-router-dom";
 import { newWord } from "../actions";
 import Game from "../components/game";
 import HighScores from "../components/highscores";
+import SaveHighScore from "../components/save_highscore";
 import "./App.css";
 
 interface IAppProps {
@@ -26,12 +27,13 @@ class App extends React.Component<IAppProps> {
           <div>
             <header className="App-header">
               <h1 className="App-title">
-                <Link to="/">WORD BUZZ</Link>
+                <Link to="/" tabIndex={-1}>WORD BUZZ</Link>
               </h1>
             </header>
             <div className="content">
               <Switch>
                 <Route path="/highscores" component={HighScores} />
+                <Route path="/savehighscore" component={SaveHighScore} />
                 <Route path="/" component={Game} />
               </Switch>
             </div>

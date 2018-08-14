@@ -25,6 +25,7 @@ it("Renders correctly", () => {
       newWord={newWord}
       score={score}
       errorsAllowed={5}
+      history={jest.fn()}
     />
   );
 
@@ -56,6 +57,7 @@ it("Calls newWord Action when word is correct", () => {
       newWord={mockFunction}
       score={0}
       errorsAllowed={5}
+      history={jest.fn()}
     />
   );
 

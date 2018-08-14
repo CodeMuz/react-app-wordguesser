@@ -1,6 +1,6 @@
 import { GAME_OVER, NEW_WORD } from "../actions";
 
-const DEFAULT_ERRORS_ALLOWED = 5;
+const DEFAULT_ERRORS_ALLOWED = 10;
 
 export default (state: number = DEFAULT_ERRORS_ALLOWED, action: any) => {
   switch (action.type) {
