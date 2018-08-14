@@ -34,7 +34,7 @@ class GuessForm extends React.Component<IMyProps, IMyComponentState> {
   public render() {
     return (
       <div>
-        <form onSubmit={this.componentGuessLetter}>
+        <form className="letterForm" onSubmit={this.componentGuessLetter}>
           <input
             className="letterInput"
             maxLength={1}
@@ -43,7 +43,7 @@ class GuessForm extends React.Component<IMyProps, IMyComponentState> {
             ref={this.input}
           />
           <button className="guessLetter" onClick={this.componentGuessLetter}>
-            Guess a Letter
+            Guess
           </button>
         </form>
       </div>

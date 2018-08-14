@@ -9,18 +9,18 @@
 
 .App-header {
   background-color: #222;
-  height: 50px;
+  height: 60px;
   padding: 20px;
-  margin-bottom: 20px;
   color: white;
+  letter-spacing: 2px;
+}
+.App-header a {
+  color: white;
+  text-decoration: none;
 }
 
-button {
-  background: blue;
-  color: white !important;
-  border-radius: 10px;
-  font-weight: 700;
-  padding: 10px;
+div.content {
+  margin-top: 40px;
 }
 
 input {
@@ -32,32 +32,103 @@ input {
 input.letterOutput {
   width: 40px;
   font-size: 1em;
+  padding-bottom: 6px;
+}
+
+form.letterForm {
+  height: 62px;
 }
 
 input.letterInput {
-  color: blue;
+  color: black;
   font-size: 2em;
-  height: 50px;
-  width: 50px;
+  height: 100%;
+  width: 62px;
+  margin: 0;
+  box-sizing: border-box;
+  padding: 0;
 }
 
 button.guessLetter {
-  color: blue;
-  font-size: 1em;
-  height: 100px;
+  color: white;
+  background: black;
+  height: 100%;
+  width: 70px;
+  display: inline-block;
+  font-size: 0.75em;
+  margin-left: 5px;
+  border: 1px solid black;
+  cursor: pointer;
   vertical-align: top;
-  width: 100px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  transition: all 0.3s;
+}
+button.guessLetter:hover {
+  background: grey;
+  color:white;
+  border: 1px solid grey;
 }
 
 div.wrongLetters {
   color: red;
-  height:50px;
+  height: 50px;
 }
 
 div.wrongLetters span {
   margin: 5px;
   width: 30px;
   font-size: 1.5em;
+}
+
+h1.highscoreTitle {
+  letter-spacing: 4px;
+}
+
+.outputForm a{
+  color:black;
+  letter-spacing: 0px;  
+  font-size: 1.4em;
+}
+.outputForm a:hover{
+  color:blueviolet;
+}
+
+table.highscoreTable {
+  width: 100%;
+  max-width: 800px;
+  margin: auto;
+  table-layout: fixed;
+  border-collapse: collapse;
+  border-spacing: 0;
+  letter-spacing: 1px;
+}
+
+.pacmanLoader {
+  display: inline-block;
+  margin: auto;
+  margin-top: 5rem;
+}
+
+.pacmanLoader > div {
+  margin: auto;
+}
+
+table.highscoreTable thead {
+  background-color: #333;
+  color: #fff;
+}
+table.highscoreTable th {
+  border-right: 1px solid white;  
+  padding: 10px;
+  text-transform: uppercase;
+}
+table.highscoreTable td {
+  border: 1px solid #333;
+  margin: 0;
+  padding: 10px 0;
+  text-transform: uppercase;
 }
 
 .App-title {

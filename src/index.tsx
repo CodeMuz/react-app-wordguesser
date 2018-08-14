@@ -1,7 +1,11 @@
+// Do this once before any other code in your app
+import 'babel-polyfill';
+
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import { createStore } from 'redux';
+import { applyMiddleware, createStore } from 'redux';
+import thunk from 'redux-thunk';
 import App from './app/App';
 import './index.css';
 import reducer from './reducers';
@@ -9,8 +13,8 @@ import registerServiceWorker from './registerServiceWorker';
 
 /* eslint-disable no-underscore-dangle */
   const store = createStore(
-   reducer, /* preloadedState, */
-   (window as any).__REDUX_DEVTOOLS_EXTENSION__ && (window as any).__REDUX_DEVTOOLS_EXTENSION__()
+   reducer,
+   applyMiddleware(thunk)
   );
 /* eslint-enable */
 

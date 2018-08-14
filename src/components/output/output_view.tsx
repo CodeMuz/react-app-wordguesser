@@ -1,5 +1,6 @@
 import * as React from "react";
 import { connect } from "react-redux";
+import {Link} from 'react-router-dom';
 import { gameOver, newWord } from "../../actions";
 import { resultSelector } from "../../selectors/game_selector";
 import LetterBox from "./letter_box/letter_box";
@@ -45,7 +46,7 @@ export class OutputView extends React.Component<IListProps>
 
   public render() {
     return (
-      <div>
+      <div className="outputForm">
         <LetterBox correctLetters={this.props.result.correctLetters} />
         <WrongLetterBox wrongLetters={this.props.result.wrongLetters} />
         <h1>
@@ -53,6 +54,7 @@ export class OutputView extends React.Component<IListProps>
           {this.props.errorsAllowed}
         </h1>
         <Score score={this.props.score} />
+        <Link to="/highscores">HighScores</Link>
       </div>
     );
   }
