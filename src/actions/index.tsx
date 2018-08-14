@@ -3,11 +3,16 @@ export const NEW_WORD = "NEW_WORD";
 export const GAME_OVER = "GAME_OVER";
 export const FETCH_HIGHSCORES = "FETCH_HIGHSCORES";
 export const SAVE_SCORE = "SAVE_SCORE";
+export const IS_HIGHSCORE = "IS_HIGHSCORE";
 
 import axios from "axios";
 import fetch from "cross-fetch";
 import Dictionary from "../dictionary";
-const ROOT_URL = "http://localhost:1234/highscore";
+
+// const ROOT_URL = "http://localhost:1234";
+const ROOT_URL = "http://wordsearchapi.xyz";
+const HIGHSCORE_RESOURCE_PATH = '/highscore';
+const API_URL = `${ROOT_URL}${HIGHSCORE_RESOURCE_PATH}`;
 
 interface InterfaceNewLetter {
   type: typeof NEW_LETTER;
@@ -40,10 +45,15 @@ export const gameOver = () => {
   };
 };
 
-export const saveScore = (score: number, name: string, word:string, callback: any) => {
+export const saveScore = (
+  score: number,
+  name: string,
+  word: string,
+  callback: any
+) => {
   return (dispatch: any) => {
     axios
-      .post(`${ROOT_URL}/create`, {
+      .post(`${API_URL}/create`, {
         highscore: score,
         name
       })
@@ -59,6 +69,7 @@ export const saveScore = (score: number, name: string, word:string, callback: an
   };
 };
 
+// Synchronous Action after Fetch is complete
 const recieveHighScores = (highscores: any) => {
   return {
     payload: highscores,
@@ -66,9 +77,10 @@ const recieveHighScores = (highscores: any) => {
   };
 };
 
+// ASynchronous Action
 export const getHighScores = () => {
   return (dispatch: any) => {
-    return fetch(`${ROOT_URL}/all`)
+    return fetch(`${API_URL}/all`)
       .then(response => {
         if (response.status !== 200) {
           return;
@@ -76,7 +88,33 @@ export const getHighScores = () => {
         return response.json();
       })
       .then(response => {
-        dispatch(recieveHighScores(response));
+        return dispatch(recieveHighScores(response));
       });
+  };
+};
+
+export const isHighScore = (
+  score: number,
+  word: string,
+  goToSaveScorePage: any
+) => {
+  return (dispatch: any, getState:any) => {
+    dispatch(getHighScores()).then(() => {
+      const currentHighscores = getState().highscores;      
+      if (currentHighscores !== undefined) {
+        if (currentHighscores.length < 10) {
+          goToSaveScorePage();
+        } else {
+          const lowestHighscore =
+            currentHighscores[currentHighscores.length - 1].highscore;
+          if (score > lowestHighscore) {
+            goToSaveScorePage();
+          }
+        }
+      } else {
+        dispatch(gameOver());
+        dispatch(newWord(word));
+      }
+    });
   };
 };

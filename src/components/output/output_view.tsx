@@ -1,7 +1,7 @@
 import * as React from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
-import { gameOver, newWord } from "../../actions";
+import { gameOver, isHighScore, newWord } from "../../actions";
 import { resultSelector } from "../../selectors/game_selector";
 import LetterBox from "./letter_box/letter_box";
 import Score from "./score";
@@ -12,7 +12,8 @@ const mapStateToProps = (state: any) => {
     errorsAllowed: state.errors,
     result: resultSelector(state),
     score: state.score,
-    word: state.word
+    word: state.word,
+    highscores: state.highscores
   };
 };
 
@@ -24,6 +25,8 @@ interface IListProps {
   newWord: (word: string) => {};
   score: number;
   history: any;
+  highscores: any;
+  isHighScore: any;
 }
 
 interface IOutputView {
@@ -39,13 +42,15 @@ export class OutputView extends React.Component<IListProps>
     if (hasWon) {
       this.props.newWord(this.props.word);
     }
-    if (this.guessesRemaining() === 0) {
-      if (this.props.score > 0) {
-        this.props.history.push("/savehighscore");
-      } else {
-        this.props.gameOver(this.props.score);
-        this.props.newWord(this.props.word);
-      }
+    global.console.log(this.props.highscores);
+    if (this.guessesRemaining() === 0) {      
+      this.props.isHighScore(
+        this.props.score,
+        this.props.word,
+        () => {
+          this.props.history.push("/savehighscore");
+        }
+      );
     }
   }
 
@@ -55,7 +60,7 @@ export class OutputView extends React.Component<IListProps>
         <LetterBox correctLetters={this.props.result.correctLetters} />
         <WrongLetterBox wrongLetters={this.props.result.wrongLetters} />
         <h1>
-          Errors Remaining: {this.guessesRemaining()} /{" "}
+          Buzz: {this.guessesRemaining()} /{" "}
           {this.props.errorsAllowed}
         </h1>
         <Score score={this.props.score} />
@@ -71,5 +76,5 @@ export class OutputView extends React.Component<IListProps>
 
 export default connect(
   mapStateToProps,
-  { newWord, gameOver }
+  { newWord, gameOver, isHighScore }
 )(OutputView);

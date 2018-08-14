@@ -1,3 +1,12 @@
+body{
+  font-size:15px;
+}  
+@media (min-width:700px){
+  body{
+    font-size:20px;
+  }  
+}
+
 .App {
   text-align: center;
 }
@@ -21,6 +30,7 @@
 
 div.content {
   margin-top: 40px;
+  padding: 0 0.8rem;
 }
 
 input {
@@ -53,7 +63,7 @@ button.guessLetter {
   color: white;
   background: black;
   height: 100%;
-  width: 70px;
+  width: 65px;
   display: inline-block;
   font-size: 0.75em;
   margin-left: 5px;
@@ -146,4 +156,48 @@ table.highscoreTable td {
   to {
     transform: rotate(360deg);
   }
+}
+
+form.highscoreForm {
+  max-width: 600px;
+  width: 100%;
+  display: block;
+  margin:auto;
+}
+
+form.highscoreForm input {
+  font-size: 1.2rem;
+  padding:5px;
+  text-align:center;
+  margin:5px;
+}
+
+form.highscoreForm button {
+  display: block;
+  background: black;
+  color:white;
+  margin:auto;
+  width: 80%;
+  height:2.2em;
+  line-height: 2.2em;
+  font-weight:700;
+  text-transform: uppercase;
+  font-size: 1.2em;
+  border:1px solid black;
+  margin-top:0.5em;
+  cursor:pointer;
+  transition: all 0.3s;  
+}
+
+form.highscoreForm button:hover {
+  background: grey;
+  color: white;
+  border: 1px solid grey;
+}
+
+form.highscoreForm button.hide {
+  opacity: 0;
+}
+form.highscoreForm button.show {
+  opacity: 1;
 }

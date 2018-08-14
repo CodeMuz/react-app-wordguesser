@@ -1,13 +1,14 @@
 import * as React from "react";
 import { connect } from "react-redux";
 import { BrowserRouter, Link, Route, Switch } from "react-router-dom";
-import { newWord } from "../actions";
+import { getHighScores, newWord } from "../actions";
 import Game from "../components/game";
 import HighScores from "../components/highscores";
 import SaveHighScore from "../components/save_highscore";
 import "./App.css";
 
 interface IAppProps {
+  getHighScores: () => {}
   newWord(previous?: string): string;
 }
 
@@ -18,6 +19,7 @@ class App extends React.Component<IAppProps> {
 
   public componentDidMount() {
     this.props.newWord();
+    // this.props.getHighScores();
   }
 
   public render() {
@@ -46,5 +48,5 @@ class App extends React.Component<IAppProps> {
 
 export default connect(
   null,
-  { newWord }
+  { newWord, getHighScores }
 )(App);

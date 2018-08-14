@@ -26,6 +26,8 @@ it("Renders correctly", () => {
       score={score}
       errorsAllowed={5}
       history={jest.fn()}
+      highscores={jest.fn()}
+      isHighScore={jest.fn()}
     />
   );
 
@@ -58,6 +60,8 @@ it("Calls newWord Action when word is correct", () => {
       score={0}
       errorsAllowed={5}
       history={jest.fn()}
+      highscores={jest.fn()}
+      isHighScore={jest.fn()}
     />
   );
 

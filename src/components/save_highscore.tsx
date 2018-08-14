@@ -29,6 +29,10 @@ class SaveHighscore extends React.Component<IScoreProps, IScoreState> {
     };
 
     this.SaveHighScore = this.SaveHighScore.bind(this);
+
+    // if(this.props.score < 0){
+    //   this.props.history.push('/');
+    // }
   }
 
   public updateName = (evt: any) => {
@@ -39,21 +43,24 @@ class SaveHighscore extends React.Component<IScoreProps, IScoreState> {
 
   public SaveHighScore(evt: any) {
     evt.preventDefault();
-
-    const callback = () => {
-      this.props.history.push("/highscores");
-    };
+    
     const { score, word } = this.props;
-    this.props.saveScore(score, this.state.name, word, callback);
+
+    this.props.saveScore(score, this.state.name, word, () => {
+      this.props.history.push("/highscores");
+    });
+
   }
 
   public render() {
+
+    const buttonClasses = (this.state.name.length > 2) ? 'show' : 'hide';
     return (
-      <form onSubmit={this.SaveHighScore}>
+      <form onSubmit={this.SaveHighScore} className="highscoreForm">
         <h1>New HighScore!</h1>
         <label>Enter your name:</label>
-        <input value={this.state.name} onChange={this.updateName} />
-        {this.state.name.length > 2 ? <button>Submit</button> : ""}
+        <input value={this.state.name} onChange={this.updateName} maxLength={20}/>
+        <button className={buttonClasses}>Submit</button>
       </form>
     );
   }

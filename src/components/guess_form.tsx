@@ -12,6 +12,7 @@ interface IMyProps {
 }
 
 class GuessForm extends React.Component<IMyProps, IMyComponentState> {
+  
   public input: any = React.createRef();
 
   constructor(props: any) {
@@ -22,7 +23,11 @@ class GuessForm extends React.Component<IMyProps, IMyComponentState> {
     this.onUpdate = this.onUpdate.bind(this);
     this.componentGuessLetter = this.componentGuessLetter.bind(this);
 
-    this.focus = this.focus.bind(this);
+    this.focus = this.focus.bind(this);    
+  }  
+
+  public componentDidMount(){
+    this.focus();
   }
 
   public focus() {
@@ -44,7 +49,7 @@ class GuessForm extends React.Component<IMyProps, IMyComponentState> {
             tabIndex={0}
           />
           <button className="guessLetter" onClick={this.componentGuessLetter}>
-            Guess
+          &#9654;
           </button>
         </form>
       </div>
