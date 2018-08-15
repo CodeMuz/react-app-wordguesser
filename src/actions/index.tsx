@@ -77,6 +77,15 @@ const recieveHighScores = (highscores: any) => {
   };
 };
 
+
+export const HIGHSCORES_LOADING = "HIGHSCORES_LOADING";
+const highScoreLoading = (bool: boolean) => {
+  return {
+    isLoading: bool,
+    type: HIGHSCORES_LOADING
+  };
+};
+
 // ASynchronous Action
 export const getHighScores = () => {
   return (dispatch: any) => {
@@ -85,6 +94,7 @@ export const getHighScores = () => {
         if (response.status !== 200) {
           return;
         }
+        dispatch(highScoreLoading(true));
         return response.json();
       })
       .then(response => {

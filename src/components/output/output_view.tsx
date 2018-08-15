@@ -1,6 +1,5 @@
 import * as React from "react";
 import { connect } from "react-redux";
-import { Link } from "react-router-dom";
 import { gameOver, isHighScore, newWord } from "../../actions";
 import { resultSelector } from "../../selectors/game_selector";
 import LetterBox from "./letter_box/letter_box";
@@ -42,7 +41,6 @@ export class OutputView extends React.Component<IListProps>
     if (hasWon) {
       this.props.newWord(this.props.word);
     }
-    global.console.log(this.props.highscores);
     if (this.guessesRemaining() === 0) {      
       this.props.isHighScore(
         this.props.score,
@@ -63,8 +61,7 @@ export class OutputView extends React.Component<IListProps>
           Buzz: {this.guessesRemaining()} /{" "}
           {this.props.errorsAllowed}
         </h1>
-        <Score score={this.props.score} />
-        <Link to="/highscores">HighScores</Link>
+        <Score score={this.props.score} />        
       </div>
     );
   }

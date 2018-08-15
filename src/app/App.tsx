@@ -19,7 +19,7 @@ class App extends React.Component<IAppProps> {
 
   public componentDidMount() {
     this.props.newWord();
-    // this.props.getHighScores();
+    this.props.getHighScores();
   }
 
   public render() {
